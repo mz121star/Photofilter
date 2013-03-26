@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+
+
+
+
+
+    <link rel="stylesheet" href="themes/smoothness/jquery-ui.css"/>
+    <!--<link rel="stylesheet" href="themes/smoothness/jquery.ui.theme.css"/>-->
+    <!--    <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+        <link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css'/>-->
+
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+</head>
+<body>
+<div id="menu"><h1>菜单栏</h1></div>
+
+<div id="workspace" class="row container">
+    <div id="toolbar-left" class="draggable ui-widget-content">
+
+        <h1 class="ui-widget-header">左侧工具条</h1>
+    </div>
+    <div id="image" class=" draggable resizable ui-widget-content">
+        <h1 class="ui-widget-header">工作区</h1>
+        <img id="my-image" data-caman-hidpi="images/1.jpg" src="/images/1.jpg">
+    </div>
+    <div id="toolbar-right" class="draggable ui-widget-content">
+        <h1 class="ui-widget-header">右侧工具条</h1>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="/lib/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<!--<script type="text/javascript" src="/lib/bootstrap.js"></script>-->
+<script type="text/javascript" src="/lib/caman.full.js"></script>
+<script>
+    $(function () {
+        $(".draggable").draggable();
+        $(".resizable").resizable();
+    });
+    Caman('#my-image', function () {
+        this.brightness(10);
+        this.contrast(30);
+        this.sepia(60);
+        this.saturation(-30);
+        this.render();
+    });
+</script>
+</html>
