@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" href="themes/smoothness/jquery-ui.css"/>
+    <!--<link rel="stylesheet" href="themes/smoothness/jquery.ui.theme.css"/>-->
+    <!--    <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+        <link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css'/>-->
+
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+</head>
+<body>
+{{>head}}
+<div id="workspace" class="row container">
+    <div id="toolbar-left" class="draggable ui-widget-content">
+
+        <h1 class="ui-widget-header">左侧工具条</h1>
+    </div>
+    <div id="image" name="dropbox" class=" draggable resizable ui-widget-content">
+        <h1 class="ui-widget-header">工作区</h1>
+        <img id="my-image" data-caman-hidpi="images/1.jpg" src="/images/1.jpg">
+    </div>
+    <div id="toolbar-right" class="draggable ui-widget-content">
+        <h1 class="ui-widget-header">右侧工具条</h1>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="/lib/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" src="/lib/filereader.js"></script>
+<script type="text/javascript" src="/lib/caman.full.js"></script>
+<script>
+    $(function () {
+        $(".draggable").draggable({ handle:"h1" });
+        $(".resizable").resizable();
+        $(".menu").menu();
+    });
+    /*  Caman('#my-image', function () {
+     this.brightness(10);
+     this.contrast(30);
+     this.sepia(60);
+     this.saturation(-30);
+     this.render();
+     });*/
+    var zindex=999;
+  $(".ui-widget-content").on("click",function(){
+      $(this).css("z-index",++zindex);
+  })
+    var photo = $('#my-image');
+    //调用FileReader插件
+    photo.fileReaderJS({
+        //监听拖拽的各个事件
+        on:{
+
+            beforestart:function (e, file) {
+                /*return /^image/.test(file.type);*/
+            },
+            loadstart:function (e, file) {
+
+            },
+            progress:function (e, file) {
+
+            },
+            load:function (e, file) {
+                //向拖拽容器添加一个图片元素
+                var img = $('#my-image');
+                //图片读取成功后触发，这样才能找到图片原始宽度和高度
+                img.load(function () {
+                    //...
+                });
+                // 设置图片的src，直接读取二进制图片数据
+                // 触发img的load事件
+                img.attr('src', e.target.result);
+            },
+            error:function (e, file) {
+            },
+            loadend:function (e, file) {
+            },
+            abort:function (e, file) {
+            },
+            skip:function (e, file) {
+                // 当一个文件被跳过处理时触发
+            }
+        }
+    })
+
+</script>
+</html>

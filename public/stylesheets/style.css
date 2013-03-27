@@ -1,23 +1,22 @@
 
 /*layout css*/
+ul li{ list-style: none; display: inline}
 div h1{
     background-color: #29B4F0;
-    border-radius: 9px;
-    -moz-border-radius:9px;
-    -webkit-border-radius: 9px;;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 12px;
-    text-align: center;
+    text-align: center;cursor: move;
 }
 
 #menu{
     height: 50px;
     clear: both;
-
+    z-index: 999;
+    position: relative;
 }
 #toolbar-left{
-    width: 80px;
-
+    width: 150px;
+    height: 400px;
 }
 #workspace{
     width: 720px;
@@ -37,3 +36,20 @@ div h1{
 #image{
 
 }
+
+/*widget*/
+.menu{
+    width: 150px;
+}
+.menubar{width: 150px}
+#my-image:after{
+    content: '拖拽一个图片到这里';
+    top: 150px;
+    z-index: 1;
+    color: #ccc;
+    display: block;
+    font-size: 20px;
+    position: absolute;
+    width: 100%;
+    letter-spacing: 1px;
+}{}

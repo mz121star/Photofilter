@@ -7,14 +7,17 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+    ,  Handlebars = require("handlebars")
+    ,fs=require('fs');
 
 var app = express();
 
 app.configure(function(){
+    app.engine("hbs", require('consolidate').handlebars);
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'hbs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -27,6 +30,14 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+// Register partials
+var partials = "./views/partials/";
+fs.readdirSync(partials).forEach(function (file) {
+    var source = fs.readFileSync(partials + file, "utf8"),
+        partial = /(.+)\.hbs/.exec(file).pop();
+
+    Handlebars.registerPartial(partial, source);
 });
 
 app.get('/', routes.index);
